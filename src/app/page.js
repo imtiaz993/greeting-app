@@ -8,6 +8,7 @@ export default function Home() {
   const [query, setQuery] = useState("");
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const filteredCountries = countriesWithGreetings.filter((country) =>
     country.name.toLowerCase().includes(query.toLowerCase())
@@ -16,6 +17,7 @@ export default function Home() {
   const handleSelect = (country) => {
     setSelectedCountry(country);
     setQuery(country.name);
+    setShowDropdown(false); // Hide dropdown after selection
     setCopiedIndex(null);
   };
 
@@ -27,7 +29,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4 text-black">
-      <h1 className="text-2xl font-bold mb-4 text-left ">
+      <h1 className="text-2xl font-bold mb-4 text-left">
         Country Greeting Finder
       </h1>
 
@@ -38,11 +40,14 @@ export default function Home() {
           className="w-full p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Search for a country..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            setShowDropdown(true); // Show dropdown when typing
+          }}
         />
 
         {/* Autocomplete Dropdown */}
-        {query && filteredCountries.length > 0 && (
+        {query && showDropdown && filteredCountries.length > 0 && (
           <ul className="absolute w-full bg-white border mt-1 rounded-md shadow-md z-10">
             {filteredCountries.map((country) => (
               <li
