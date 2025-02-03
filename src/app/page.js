@@ -27,7 +27,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-4 text-black">
-      <h1 className="text-2xl font-bold mb-4 text-left ">Country Greeting Finder</h1>
+      <h1 className="text-2xl font-bold mb-4 text-left ">
+        Country Greeting Finder
+      </h1>
 
       {/* Search Input */}
       <div className="relative w-full max-w-md">
@@ -55,35 +57,37 @@ export default function Home() {
         )}
       </div>
 
-      {/* Display Greeting */}
-      {selectedCountry && (
-        <div className="mt-6 bg-white p-4 rounded-lg shadow-md w-full max-w-md">
-          <h2 className="text-lg font-semibold">{selectedCountry.name}</h2>
+      <div className="min-h-[50dvh] w-full">
+        {/* Display Greeting */}
+        {selectedCountry && (
+          <div className="mt-6 bg-white p-4 rounded-lg shadow-md w-full mx-auto max-w-md">
+            <h2 className="text-lg font-semibold">{selectedCountry.name}</h2>
 
-          {/* Show multiple greetings with copy buttons */}
-          <div className="mt-2 space-y-2">
-            {selectedCountry.greetings.map((greeting, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-between p-2 border rounded-md"
-              >
-                <p>{greeting}</p>
-                <button
-                  onClick={() => copyToClipboard(greeting, index)}
-                  className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+            {/* Show multiple greetings with copy buttons */}
+            <div className="mt-2 space-y-2">
+              {selectedCountry.greetings.map((greeting, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-2 border rounded-md"
                 >
-                  <FiCopy size={20} />
-                </button>
-              </div>
-            ))}
-          </div>
+                  <p>{greeting}</p>
+                  <button
+                    onClick={() => copyToClipboard(greeting, index)}
+                    className="p-2 bg-gray-200 rounded-full hover:bg-gray-300"
+                  >
+                    <FiCopy size={20} />
+                  </button>
+                </div>
+              ))}
+            </div>
 
-          {/* Copy Confirmation Message */}
-          {copiedIndex !== null && (
-            <p className="mt-2 text-green-500">Copied to clipboard!</p>
-          )}
-        </div>
-      )}
+            {/* Copy Confirmation Message */}
+            {copiedIndex !== null && (
+              <p className="mt-2 text-green-500">Copied to clipboard!</p>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
